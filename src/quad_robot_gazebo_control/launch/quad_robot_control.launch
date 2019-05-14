@@ -1,0 +1,20 @@
+<launch>
+
+  <!-- Load joint controller configurations from YAML file to parameter server -->
+  <rosparam file="$(find quad_robot_gazebo_control)/config/quad_robot_control.yaml" command="load"/>
+
+  <!-- load the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" ns="/quad_robot" args="jntFrontLeft1_position_controller jntFrontLeft3_position_controller jntFrontLeft4_position_controller 
+                                            jntFrontRight1_position_controller jntFrontRight3_position_controller jntFrontRight4_position_controller
+                                            jntBackLeft1_position_controller jntBackLeft3_position_controller jntBackLeft4_position_controller
+                                            jntBackRight1_position_controller jntBackRight3_position_controller jntBackRight4_position_controller
+                                            joint_state_controller"/>
+
+  <!-- convert joint states to TF transforms for rviz, etc -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+    respawn="false" output="screen">
+    <remap from="/joint_states" to="/quad_robot/joint_states" />
+  </node>
+
+</launch>

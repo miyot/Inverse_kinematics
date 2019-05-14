@@ -1,0 +1,876 @@
+<robot name="quad_robot">
+    <!-- bodyCenter -->
+    <!-- bodyFrontLeft -->
+    <!-- bodyFrontRight -->
+    <!-- bodyBackLeft -->
+    <!-- bodyBackRight -->
+
+
+
+    <!-- <joint name="world2base" type="fixed">
+        <parent link="world"/>
+        <child link="base_link"/>
+    </joint>
+    <link name="world"/> -->
+
+
+    <!-- <joint name="fixed" type="fixed">
+        <parent link="base_link"/>
+        <child link="bodyCenter"/>
+    </joint> -->
+    <link name="base_link"/>
+    <!-- bodyCenter -->
+    <joint name="jntCenter" type="fixed">
+        <parent link="base_link"/>
+        <child link="bodyCenter"/>
+        <origin xyz="0 0 0.48" rpy="0 0 0" />
+    </joint>
+    <link name="bodyCenter">
+        <collision>
+            <geometry>
+                <box size="0.2 0.2 0.01"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.2 0.2 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 2.0"/>
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyCenter">
+        <material>Gazebo/Green</material>
+    </gazebo>
+    <!-- bodyFrontLeft -->
+    <joint name="jntFrontLeft1" type="revolute">
+        <parent link="bodyCenter"/>
+        <child link="bodyFrontLeft1"/>
+        <origin xyz="0.1 0.1 0" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntFrontLeft1">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+    <link name="bodyFrontLeft1">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+            <material name="red">
+                <color rgba="1.0 0.0 0.0 2.0"/>
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.025" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyFrontLeft1">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transFrontLeft1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntFrontLeft1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorFrontLeft1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntFrontLeft2" type="fixed">
+        <parent link="bodyFrontLeft1"/>
+        <child link="bodyFrontLeft2"/>
+        <origin xyz="0 0 -0.05" rpy="0 0 0" />
+    </joint>
+
+    <link name="bodyFrontLeft2">
+        <collision>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+            <material name="red"/>
+        </visual>
+        <inertial>
+            <origin rpy="-0.005 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <joint name="jntFrontLeft3" type="revolute">
+        <parent link="bodyFrontLeft2"/>
+        <child link="bodyFrontLeft3"/>
+        <origin xyz="-0.01 0 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntFrontLeft3">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+
+    <link name="bodyFrontLeft3">
+        <collision>
+ 			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="red"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyFrontLeft3">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transFrontLeft3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntFrontLeft3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorFrontLeft3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntFrontLeft4" type="revolute">
+        <parent link="bodyFrontLeft3"/>
+        <child link="bodyFrontLeft4"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntFrontLeft4">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+    <link name="bodyFrontLeft4">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="red"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyFrontLeft4">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transFrontLeft4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntFrontLeft4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorFrontLeft4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntFrontLeft5" type="fixed">
+        <parent link="bodyFrontLeft4"/>
+        <child link="bodyFrontLeft5"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+    </joint>
+    <link name="bodyFrontLeft5">
+        <collision>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="red"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="bodyFrontLeft5">
+        <material>Gazebo/Red</material>
+        <mu1>1000</mu1>
+        <mu2>1000</mu2>
+        <selfCollide>false</selfCollide>
+    </gazebo>
+
+    <joint name="jntFrontRight1" type="revolute">
+        <parent link="bodyCenter"/>
+        <child link="bodyFrontRight1"/>
+        <origin xyz="0.1 -0.1 0" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntFrontRight1">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+    <link name="bodyFrontRight1">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+            <material name="blue">
+                <color rgba="0.0 0.0 1.0 2.0"/>
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.025" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyFrontRight1">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transFrontRight1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntFrontRight1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorFrontRight1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntFrontRight2" type="fixed">
+        <parent link="bodyFrontRight1"/>
+        <child link="bodyFrontRight2"/>
+        <origin xyz="0 0 -0.05" rpy="0 0 0" />
+    </joint>
+    <link name="bodyFrontRight2">
+        <collision>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+            <material name="blue"/>
+        </visual>
+        <inertial>
+            <origin rpy="-0.005 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <joint name="jntFrontRight3" type="revolute">
+        <parent link="bodyFrontRight2"/>
+        <child link="bodyFrontRight3"/>
+        <origin xyz="-0.01 0 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntFrontRight3">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+    <link name="bodyFrontRight3">
+        <collision>
+ 			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="blue"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyFrontRight3">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transFrontRight3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntFrontRight3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorFrontRight3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntFrontRight4" type="revolute">
+        <parent link="bodyFrontRight3"/>
+        <child link="bodyFrontRight4"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntFrontRight4">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+
+    <link name="bodyFrontRight4">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="blue"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyFrontRight4">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transFrontRight4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntFrontRight4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorFrontRight4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntFrontRight5" type="fixed">
+        <parent link="bodyFrontRight4"/>
+        <child link="bodyFrontRight5"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+    </joint>
+    <link name="bodyFrontRight5">
+        <collision>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="blue"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyFrontRight5">
+        <material>Gazebo/Red</material>
+        <mu1>1000</mu1>
+        <mu2>1000</mu2>
+        <selfCollide>false</selfCollide>
+    </gazebo>
+
+    <!-- bodyBackLeft -->
+    <joint name="jntBackLeft1" type="revolute">
+        <parent link="bodyCenter"/>
+        <child link="bodyBackLeft1"/>
+        <origin xyz="-0.1 0.1 0" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntBackLeft1">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+    <link name="bodyBackLeft1">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+            <material name="green">
+                <color rgba="0.0 1.0 0.0 2.0"/>
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.025" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyBackLeft1">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transBackLeft1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntBackLeft1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorBackLeft1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntBackLeft2" type="fixed">
+        <parent link="bodyBackLeft1"/>
+        <child link="bodyBackLeft2"/>
+        <origin xyz="0 0 -0.05" rpy="0 0 0" />
+    </joint>
+    <link name="bodyBackLeft2">
+        <collision>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+            <material name="green"/>
+        </visual>
+        <inertial>
+            <origin rpy="-0.005 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <joint name="jntBackLeft3" type="revolute">
+        <parent link="bodyBackLeft2"/>
+        <child link="bodyBackLeft3"/>
+        <origin xyz="-0.01 0 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntBackLeft3">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+
+    <link name="bodyBackLeft3">
+        <collision>
+ 			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="green"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <gazebo reference="bodyBackLeft3">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transBackLeft3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntBackLeft3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorBackLeft3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntBackLeft4" type="revolute">
+        <parent link="bodyBackLeft3"/>
+        <child link="bodyBackLeft4"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntBackLeft4">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+
+    <link name="bodyBackLeft4">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="green"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyBackLeft4">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transBackLeft4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntBackLeft4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorBackLeft4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntBackLeft5" type="fixed">
+        <parent link="bodyBackLeft4"/>
+        <child link="bodyBackLeft5"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+    </joint>
+    <link name="bodyBackLeft5">
+        <collision>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="green"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyBackLeft5">
+        <material>Gazebo/Red</material>
+        <mu1>1000</mu1>
+        <mu2>1000</mu2>
+        <selfCollide>false</selfCollide>
+    </gazebo>
+
+    <!-- bodyBackRight -->
+    <joint name="jntBackRight1" type="revolute">
+        <parent link="bodyCenter"/>
+        <child link="bodyBackRight1"/>
+        <origin xyz="-0.1 -0.1 0" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntBackRight1">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+
+    <link name="bodyBackRight1">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.02" length = "0.03"  />
+			</geometry>
+            <origin xyz="0 0 -0.025" rpy="0 0 0"/>
+            <material name="white">
+                <color rgba="1.0 1.0 1.0 2.0"/>
+            </material>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.025" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyBackRight1">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transBackRight1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntBackRight1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorBackRight1">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntBackRight2" type="fixed">
+        <parent link="bodyBackRight1"/>
+        <child link="bodyBackRight2"/>
+        <origin xyz="0 0 -0.05" rpy="0 0 0" />
+    </joint>
+    <link name="bodyBackRight2">
+        <collision>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.005 0.005 0.005"/>
+            </geometry>
+            <origin xyz="-0.005 0 0" rpy="0 0 0"/>
+            <material name="white"/>
+        </visual>
+        <inertial>
+            <origin rpy="-0.005 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+
+    <joint name="jntBackRight3" type="revolute">
+        <parent link="bodyBackRight2"/>
+        <child link="bodyBackRight3"/>
+        <origin xyz="-0.01 0 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntBackRight3">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+
+    <link name="bodyBackRight3">
+        <collision>
+ 			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="white"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyBackRight3">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transBackRight3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntBackRight3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorBackRight3">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntBackRight4" type="revolute">
+        <parent link="bodyBackRight3"/>
+        <child link="bodyBackRight4"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="20" velocity="2"/>
+        <dynamics damping="2"/>
+    </joint>
+    <gazebo reference = "jntBackRight4">
+        <!-- <kd>10</kd> -->
+        <!-- <stopCfm>10</stopCfm> -->
+        <!-- <kp>10</kp> -->
+    </gazebo>
+
+    <link name="bodyBackRight4">
+        <collision>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+        </collision>
+        <visual>
+			<geometry>
+				<cylinder radius = "0.01" length = "0.18"  />
+			</geometry>
+            <origin xyz="0 0 -0.1" rpy="0 0 0"/>
+            <material name="white"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 -0.1" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyBackRight4">
+        <material>Gazebo/Red</material>
+    </gazebo>
+    <transmission name="transBackRight4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="jntBackRight4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="motorBackRight4">
+            <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <joint name="jntBackRight5" type="fixed">
+        <parent link="bodyBackRight4"/>
+        <child link="bodyBackRight5"/>
+        <origin xyz="0 0 -0.2" rpy="0 0 0" />
+    </joint>
+    <link name="bodyBackRight5">
+        <collision>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+        </collision>
+        <visual>
+            <geometry>
+                <box size="0.03 0.03 0.02"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="white"/>
+        </visual>
+        <inertial>
+            <origin rpy="0 0 0" xyz="0 0 0.075"/>
+            <mass value="1"/>
+            <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+        </inertial>
+    </link>
+    <gazebo reference="bodyBackRight5">
+        <material>Gazebo/Red</material>
+        <mu1>1000</mu1>
+        <mu2>1000</mu2>
+        <selfCollide>false</selfCollide>
+    </gazebo>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/quad_robot</robotNamespace>
+        </plugin>
+    </gazebo>
+
+</robot>

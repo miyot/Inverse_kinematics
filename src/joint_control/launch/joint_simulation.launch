@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="urdf" default="$(find joint_control)/urdf/quad_robot.urdf" />
+
+  <param name="robot_description" textfile="$(arg urdf)"/>
+
+  <!-- <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
+    <param name="use_gui" value="true"/>
+  </node> -->
+  <node name="visualize_joint_publisher" pkg="joint_control" type="visualize_joint_publisher"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find joint_control)/launch/joint_simulation.rviz" />
+</launch>

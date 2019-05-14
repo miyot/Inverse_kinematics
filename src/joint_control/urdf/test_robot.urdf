@@ -1,0 +1,93 @@
+<robot name="test_robot">
+    <link name="base_link"/>
+<!-- bodyCenter -->
+    <joint name="jntCenter" type="fixed">
+        <parent link="base_link"/>
+        <child  link="bodyCenter"/>
+    </joint>
+    <link name="bodyCenter">
+        <visual>
+            <geometry>
+                <box size="2 2 0.2"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="black">
+                <color rgba="0.0 0.0 0.0 2.0"/>
+            </material>
+        </visual>
+    </link>
+ <!-- bodyFrontLeft -->
+    <joint name="jntFrontLeft1" type="revolute">
+        <parent link="bodyCenter"/>
+        <child  link="bodyFrontLeft1"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.14" upper="3.14" effort="2" velocity="2"/>
+    </joint>
+    <link name="bodyFrontLeft1">
+        <visual>
+            <geometry>
+                <box size="0.3 0.3 0.2"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="red">
+                <color rgba="1.0 0.0 0.0 2.0"/>
+            </material>
+        </visual>
+    </link>
+ 
+    <joint name="jntFrontLeft2" type="revolute">
+        <parent link="bodyFrontLeft1"/>
+        <child  link="bodyFrontLeft2"/>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="2" velocity="2"/>
+    </joint>
+    <link name="bodyFrontLeft2">
+        <visual>
+            <geometry>
+                <box size="0.3 0.3 0.2"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="red"/>
+                <!-- <color rgba="1.0 0.0 0.0 2.0"/>
+            </material> -->
+        </visual>
+    </link>
+
+    <joint name="jntFrontLeft3" type="revolute">
+        <parent link="bodyFrontLeft2"/>
+        <child  link="bodyFrontLeft3"/>
+        <origin xyz="0 0 2" rpy="0 0 0" />
+        <axis xyz="0 1 0" />
+        <limit lower="-3.14" upper="3.14" effort="2" velocity="2"/>
+    </joint>
+    <link name="bodyFrontLeft3">
+        <visual>
+            <geometry>
+                <box size="0.3 0.3 0.2"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="red"/>
+                <!-- <color rgba="1.0 0.0 0.0 2.0"/>
+            </material> -->
+        </visual>
+    </link>
+
+    <joint name="jntFrontLeft4" type="fixed">
+        <parent link="bodyFrontLeft3"/>
+        <child  link="bodyFrontLeft4"/>
+        <origin xyz="0 0 2" rpy="0 0 0" />
+    </joint>
+    <link name="bodyFrontLeft4">
+        <visual>
+            <geometry>
+                <box size="0.3 0.3 0.2"/>
+            </geometry>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <material name="red"/>
+                <!-- <color rgba="1.0 0.0 0.0 2.0"/>
+            </material> -->
+        </visual>
+    </link>
+</robot>
